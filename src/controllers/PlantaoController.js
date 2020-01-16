@@ -11,13 +11,13 @@ module.exports = {
     },
     async store(request, response) {
         const { codigo, farmaciaid, datainicio, datafim, github_username, techs, latitude, longitude } = request.body;
+        
+        //let plantao = await Plantao.findOne({ github_username });
 
-        let plantao = await Plantao.findOne({ github_username });
+        //if (!plantao) {
+            //const apiResponse = await axios.get(`https://api.github.com/users/${github_username}`);
 
-        if (!plantao) {
-            const apiResponse = await axios.get(`https://api.github.com/users/${github_username}`);
-
-            const { avatar_url, bio } = apiResponse.data;
+            //const { avatar_url, bio } = apiResponse.data;
 
             const techsArray = parseStringAsArray(techs, techs);
             const location = {
@@ -31,13 +31,11 @@ module.exports = {
                 datainicio,
                 datafim,
                 github_username,
-                avatar_url,
-                bio,
                 techs: techsArray,
                 location,
             })
-        }
-        return response.json(plantao);
+        //}
+        return response.json(request.body);
     },
     async update(request, response){
         const { codigo } = request.params;
@@ -48,6 +46,8 @@ module.exports = {
         if(plantao){
             plantao = await Plantao.updateOne({
                 farmaciaid,
+                datainicio,
+                datafim
             })
             return response.json(plantao);
         }

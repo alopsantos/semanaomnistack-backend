@@ -1,19 +1,19 @@
-const Plantao = require('../models/Farmacia');
-const parseStringAsArray = require('../utils/parseStringAsArray');
+const Farmacia = require('../models/Farmacia');
 
 module.exports = {
     async index(request, response) {
-        const { latitude, longitude, techs, datainicio, datafim } = request.query;
-
-        const techsArray = parseStringAsArray(techs);
-
-        const plantoes = await Plantao.find({
-            $and: [
+        const { name, datainicio, datafim } = request.query;
+        
+        const farmacias = await Farmacia.find({
+            /*$and: [
                 { datainicio: { $lte: datainicio } },
                 { datafim: { $gte: datafim } }
-            ]
+            ]*/
+        //name:  {$regex: /.*name.*/}
+        //name: {$regex: /${{name}}/}
+    name: {$regex: /${{name}}/}
         });
 
-        return response.json({ plantoes });
+        return response.json({ farmacias });
     }
 }

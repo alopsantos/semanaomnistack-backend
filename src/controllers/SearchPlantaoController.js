@@ -3,9 +3,7 @@ const parseStringAsArray = require('../utils/parseStringAsArray');
 
 module.exports = {
     async index(request, response) {
-        const { latitude, longitude, techs, datainicio, datafim } = request.query;
-
-        const techsArray = parseStringAsArray(techs);
+        const { datainicio, datafim } = request.query;
 
         const plantoes = await Plantao.find({
             $and: [
@@ -13,7 +11,6 @@ module.exports = {
                 { datafim: { $gte: datafim } }
             ]
         });
-
         return response.json({ plantoes });
     }
 }

@@ -32,35 +32,30 @@ module.exports = {
         return response.json(farmacia);
     },
     async update(request, response){
-        const { codigo } = request.params;
+        const { id } = request.params;
         const { name, phone, urllogo, address, email } = request.body;
 
-        let farmacia = await Farmacia.findOne({ phone: codigo });
-
-        if(!farmacia){
-            return response.status(400).json({Atenção: 'Farmacia não cadastrada'});
-        }
         const addressArray = parseStringAsArray(address, address);
-        farmacia = await Farmacia.updateOne({
+        const farmacia = await Farmacia.findByIdAndUpdate(id, {
             name,
             phone,
             urllogo,
             address: addressArray,
             email
         })
-        return response.status(200).json({ Atenção: 'Farmacia atualizada com sucesso.' });
+        return response.json(farmacia);
     },
     async delete(request, response){
-        const { codigo } = request.params;
+        const { id } = request.params;
+        const farmaciaExists = await Farmacia.findById(id);
+        const result = farmaciaExists ? {message: `A Farmácia ${farmaciaExists.name} foi removida com sucesso!`} : {message: 'Farmácia não econtrada!'}
 
-        let farmacia = await Farmacia.findById({ _id: codigo });
 
-        if(!farmacia){
-            return response.status(400).json({Atenção: 'Farmacia não cadastrada'});
+        if(farmaciaExists){
+            await Farmacia.findByIdAndDelete(id);
         }
-
-        farmacia = await Farmacia.deleteOne();
-        return response.status(200).json({ Atenção: 'Farmacia excluida com sucesso.' });
+        
+        return response.json(result);
                 
     }
 };

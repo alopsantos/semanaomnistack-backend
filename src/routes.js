@@ -13,8 +13,8 @@ routes.get('/searchplantao', SearchPlantaoController.index);
 
 routes.get('/farmacias', FarmaciaController.index);
 routes.post('/farmacias', FarmaciaController.store);
-routes.put('/farmacia/:codigo', FarmaciaController.update);
-routes.delete('/farmacia/:codigo', FarmaciaController.delete);
-routes.get('/searchfarmacia', SearchFarmaciaController.index);
+routes.put('/farmacia/:id', FarmaciaController.update);
+routes.delete('/farmacia/:id', FarmaciaController.delete);
+routes.get('/searchfarmacia/:termo', SearchFarmaciaController.index);
 
 module.exports = routes;

@@ -1,6 +1,5 @@
-const axios = require('axios');
+
 const Plantao = require('../models/Pantao');
-const parseStringAsArray = require('../utils/parseStringAsArray');
 
 // index, show, store, update, destroy
 
@@ -10,59 +9,38 @@ module.exports = {
         return response.json(plantoes);
     },
     async store(request, response) {
-        const { codigo, farmaciaid, datainicio, datafim, github_username, techs, latitude, longitude } = request.body;
-        
-        //let plantao = await Plantao.findOne({ github_username });
+        const { codigo, farmaciaid, datainicio, datafim } = request.body;
 
-        //if (!plantao) {
-            //const apiResponse = await axios.get(`https://api.github.com/users/${github_username}`);
+        plantao = await Plantao.create({
+            codigo,
+            farmaciaid,
+            datainicio,
+            datafim,
+        });
 
-            //const { avatar_url, bio } = apiResponse.data;
-
-            const techsArray = parseStringAsArray(techs, techs);
-            const location = {
-                type: 'Point',
-                coordinates: [longitude, latitude],
-            };
-
-            plantao = await Plantao.create({
-                codigo,
-                farmaciaid,
-                datainicio,
-                datafim,
-                github_username,
-                techs: techsArray,
-                location,
-            })
-        //}
         return response.json(request.body);
     },
-    async update(request, response){
-        const { codigo } = request.params;
-        const { farmaciaid, datainicio, datafim } = request.body;
+    async update(request, response) {
+        const { id } = request.params;
+        const { datainicio, datafim, farmaciaid } = request.body;
 
-        let plantao = await Plantao.findOne({ codigo });
-
-        if(plantao){
-            plantao = await Plantao.updateOne({
-                farmaciaid,
-                datainicio,
-                datafim
-            })
-            return response.json(plantao);
-        }
-        
+        const plantao = await Plantao.findByIdAndUpdate(id, {
+            datainicio,
+            datafim,
+            farmaciaid
+        })
+        return response.json(plantao);
     },
-    async delete(request, response){
-        const { codigo } = request.params;
+    async delete(request, response) {
+        const { id } = request.params;
+        const plantaoExists = await Plantao.findById(id);
+        const result = plantaoExists ? { message: `O plantao ${plantaoExists.datainicio} foi removido com sucesso!` } : { message: 'Plantao não encontrado!' }
 
-        let plantao = await Plantao.findOne({ codigo });
-
-        if(!plantao){
-            return response.status(400).json({Atenção: 'Plantao não cadastrada'});
+        if (plantaoExists) {
+            await Plantao.findByIdAndDelete(id);
         }
-        plantao = await Plantao.deleteOne();
-        return response.status(200).json({ Atenção: 'Plantao excluida com sucesso.' });
-                
+
+        return response.json(result);
+
     }
 };

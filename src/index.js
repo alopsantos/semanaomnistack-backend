@@ -11,6 +11,7 @@ const app = express();
 mongoose.connect(
     process.env.MONGO_URL,
     {
+        useUnifiedTopology: true,
         useNewUrlParser: true
     }
 );

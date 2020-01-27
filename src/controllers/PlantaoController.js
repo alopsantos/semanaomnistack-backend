@@ -9,11 +9,11 @@ module.exports = {
         return response.json(plantoes);
     },
     async store(request, response) {
-        const { codigo, farmaciaid, datainicio, datafim } = request.body;
+        const { codigo, farmacia, datainicio, datafim } = request.body;
 
         plantao = await Plantao.create({
             codigo,
-            farmaciaid,
+            farmacia,
             datainicio,
             datafim,
         });

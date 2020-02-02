@@ -6,9 +6,6 @@ const Plantao = require('../models/Pantao');
 module.exports = {
     async index(request, response) {
         const plantoes = await Plantao.findAll();
-        if(!plantoes){
-            return response.json({ Mensagem: "Nenhum Plantão foi cadastrado ainda, falar com Anderson!"});
-        }
         return response.json(plantoes);
     },
     async store(request, response) {

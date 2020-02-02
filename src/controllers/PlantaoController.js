@@ -5,8 +5,11 @@ const Plantao = require('../models/Pantao');
 
 module.exports = {
     async index(request, response) {
-        const plantoes = await Plantao.findAll();
-        return response.json(plantoes);
+        const plantoes = await Plantao.find();
+        if(plantoes){
+            return response.status(404).json({ message: "Nenhum Plantão encontrado" });
+        }
+        return response.json({ plantoes });
     },
     async store(request, response) {
         const { farmaciaid, datainicio, datafim } = request.body;

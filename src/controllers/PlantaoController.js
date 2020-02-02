@@ -5,15 +5,9 @@ const Plantao = require('../models/Pantao');
 
 module.exports = {
     async index(request, response) {
-<<<<<<< HEAD
         const plantoes = await Plantao.findAll();
         if(!plantoes){
             return response.json({ Mensagem: "Nenhum Plantão foi cadastrado ainda, falar com Anderson!"});
-=======
-        const plantoes = await Plantao.find();
-        if(!plantoes){
-            return response.status(401).json({ Mensagem: "Nenhum plantão cadastrado ainda, falar com Anderson!" });
->>>>>>> 1fb8db87c70e88691ebd67f23a26e4e4dbb6c3e5
         }
         return response.json(plantoes);
     },
@@ -22,10 +16,6 @@ module.exports = {
 
         plantao = await Plantao.create({
             farmaciaid,
-<<<<<<< HEAD
-=======
-            farmacia,
->>>>>>> 1fb8db87c70e88691ebd67f23a26e4e4dbb6c3e5
             datainicio,
             datafim,
         });

@@ -6,7 +6,7 @@ const SearchFarmaciaController = require('./controllers/SearchFarmaciaController
 const routes = Router();
 
 routes.get('/plantoes', PlantaoController.index);
-routes.post('/plantao', PlantaoController.store);
+routes.post('/plantao/:farmacia_id', PlantaoController.store);
 routes.put('/plantao/:id', PlantaoController.update);
 routes.delete('/plantao/:id', PlantaoController.delete);
 

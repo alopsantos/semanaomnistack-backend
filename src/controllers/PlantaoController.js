@@ -5,15 +5,17 @@ const Plantao = require('../models/Pantao');
 
 module.exports = {
     async index(request, response) {
-        const plantoes = await Plantao.find();
+        const plantoes = await Plantao.findAll();
+        if(!plantoes){
+            return response.json({ Mensagem: "Nenhum Plantão foi cadastrado ainda, falar com Anderson!"});
+        }
         return response.json(plantoes);
     },
     async store(request, response) {
-        const { codigo, farmacia, datainicio, datafim } = request.body;
+        const { farmaciaid, datainicio, datafim } = request.body;
 
         plantao = await Plantao.create({
-            codigo,
-            farmacia,
+            farmaciaid,
             datainicio,
             datafim,
         });

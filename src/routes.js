@@ -9,6 +9,7 @@ routes.get('/plantoes', PlantaoController.index);
 routes.post('/plantoes/:farmaciaid', PlantaoController.store);
 routes.put('/plantao/:id', PlantaoController.update);
 routes.delete('/plantao/:id', PlantaoController.delete);
+
 routes.get('/searchplantao', SearchPlantaoController.index);
 
 routes.get('/farmacias', FarmaciaController.index);

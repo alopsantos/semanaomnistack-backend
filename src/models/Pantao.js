@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const PointSchema = require('./utils/PointSchema');
 
 const PlantaoSchema = new mongoose.Schema({
     farmacia:{

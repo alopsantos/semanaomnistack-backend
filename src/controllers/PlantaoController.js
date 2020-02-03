@@ -5,29 +5,23 @@ const Plantao = require('../models/Pantao');
 
 module.exports = {
     async index(request, response) {
-        const plantoes = await Plantao.find();
+        const plantoes = await Plantao.find().populate('farmacia');
         return response.json(plantoes);
     },
     async store(request, response) {
-        const { codigo, farmaciaid, datainicio, datafim } = request.body;
+        const { farmaciaid } = request.params;
 
-        plantao = await Plantao.create({
-            codigo,
-            farmaciaid,
-            datainicio,
-            datafim,
-        });
+        plantao = await Plantao.create({ ...request.body, farmacia: farmaciaid });
 
-        return response.json(request.body);
+        return response.json(plantao.body);
     },
     async update(request, response) {
         const { id } = request.params;
-        const { datainicio, datafim, farmaciaid } = request.body;
+        const { datainicio, datafim } = request.body;
 
         const plantao = await Plantao.findByIdAndUpdate(id, {
             datainicio,
             datafim,
-            farmaciaid
         })
         return response.json(plantao);
     },

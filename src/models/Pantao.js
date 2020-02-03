@@ -6,7 +6,8 @@ const PlantaoSchema = new mongoose.Schema({
     datafim: Date,
     farmacia_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Farmacia'
+        ref: 'Farmacia',
+        require: true,
     }
 });
 

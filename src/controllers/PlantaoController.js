@@ -1,22 +1,17 @@
-
 const Plantao = require('../models/Pantao');
 
 // index, show, store, update, destroy
 
 module.exports = {
     async index(request, response) {
-        const plantoes = await Plantao.find();
+        const plantoes = await Plantao.find().populate('farmacia');
         return response.json(plantoes);
     },
     async store(request, response) {
         const { farmacia_id } = request.params;
         const { datainicio, datafim } = request.body;
 
-        plantao = await Plantao.create({
-            farmacia_id,
-            datainicio,
-            datafim,
-        });
+        plantao = await Plantao.create({ ...request.body, farmacia_id });
 
         return response.json(request.body);
     },

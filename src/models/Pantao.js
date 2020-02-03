@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const PlantaoSchema = new mongoose.Schema({
+<<<<<<< HEAD
     farmacia:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Farmacia',
@@ -13,6 +14,14 @@ const PlantaoSchema = new mongoose.Schema({
     datafim: {
         type: Date,
         require: true,
+=======
+    codigo: Number,
+    datainicio: Date,
+    datafim: Date,
+    farmacia_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Farmacia'
+>>>>>>> 7daaba2cc1a3ac04af58602cf051473205b3d801
     }
 });
 

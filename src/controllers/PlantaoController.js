@@ -5,7 +5,7 @@ const Plantao = require('../models/Pantao');
 
 module.exports = {
     async index(request, response) {
-        const plantoes = await Plantao.find().populate('farmacia');
+        const plantoes = await Plantao.find().populate('farmacia').limit(1);
         return response.json(plantoes);
     },
     async store(request, response) {
